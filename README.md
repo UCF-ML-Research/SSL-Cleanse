@@ -2,15 +2,11 @@
 
 This repository contains code for our paper "[SSL-Cleanse: Trojan Detection and Mitigation in Self-Supervised Learning](https://arxiv.org/pdf/2303.09079.pdf)". 
 In this paper, we propose SSL-Cleanse to detect and mitigate backdoor attacks in SSL encoders. In particular, we propose a SWK clustering to cluster the unlabeled 
-data and then use such clustered data to conduct detection and mitigation by Detector and Mitigator. 
+data and then use such clustered data to conduct SSL-Cleanse. 
 
 ## Overview
-The Workflow of Detector.
-![detector](https://user-images.githubusercontent.com/40141652/212993411-461de04b-705e-4629-bf7c-005fbcf4da85.png)
-
-
-The Workflow of Mitigator.
-![mitigator](https://user-images.githubusercontent.com/40141652/212992975-3a059bd7-3db0-42c6-8375-b324b3a46352.png)
+The Workflow of SSL-Cleanse.
+![detector](https://github.com/UCF-ML-Research/SSL-Cleanse/blob/main/figures/detector.png)
 
 
 
@@ -49,7 +45,7 @@ the google drive [[here](https://drive.google.com/drive/folders/1xj7u-6klfYMronI
 
 ## SWK clustering
 We provide a demo of SWK clustering in the file "./cluster.ipynb". <br/>
-![SWK clustering](https://user-images.githubusercontent.com/40141652/212992975-3a059bd7-3db0-42c6-8375-b324b3a46352.png)
+![SWK clustering](https://github.com/UCF-ML-Research/SSL-Cleanse/blob/main/figures/cluster.png)
 
 ## SSL-Cleanse
 To use our detector, you can run the following command. <br/>
