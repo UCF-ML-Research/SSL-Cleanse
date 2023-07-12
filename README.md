@@ -60,3 +60,13 @@ python detector.py \
   --fname ../checkpoint/imagenet/encoder/clean.pt --test_file_path ../data/imagenet/test_filelist.txt \
   --num_clusters 12 --knn_sample_num 1000 --ratio 0.01 --trigger_path
 ```
+
+## Acknowledgement
+Our work and code are inspired by the following repositories:
+1. https://github.com/UMBCvision/ssl-backdoor
+2. https://github.com/UMBCvision/ssl-backdoor
+
+## Reference
+[1] Saha, Aniruddha, et al. "Backdoor attacks on self-supervised learning." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
+[2] Xue, Jiaqi, and Qian Lou. "ESTAS: Effective and Stable Trojan Attacks in Self-supervised Encoders with One Target Unlabelled Sample." arXiv preprint arXiv:2211.10908 (2022).
+[3] Li, Changjiang, et al. "Demystifying Self-supervised Trojan Attacks." arXiv preprint arXiv:2210.07346 (2022).
