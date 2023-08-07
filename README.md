@@ -64,9 +64,10 @@ python detector.py \
 ## Acknowledgement
 Our work and code are inspired by the following repositories:
 1. https://github.com/UMBCvision/ssl-backdoor
-2. https://github.com/UMBCvision/ssl-backdoor
+2. https://github.com/bolunwang/backdoor
+3. https://github.com/meet-cjli/CTRL
 
 ## Reference
-[1] Saha, Aniruddha, et al. "Backdoor attacks on self-supervised learning." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
-[2] Xue, Jiaqi, and Qian Lou. "ESTAS: Effective and Stable Trojan Attacks in Self-supervised Encoders with One Target Unlabelled Sample." arXiv preprint arXiv:2211.10908 (2022).
+[1] Saha, Aniruddha, et al. "Backdoor attacks on self-supervised learning." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022. <br/>
+[2] Xue, Jiaqi, and Qian Lou. "ESTAS: Effective and Stable Trojan Attacks in Self-supervised Encoders with One Target Unlabelled Sample." arXiv preprint arXiv:2211.10908 (2022). <br/>
 [3] Li, Changjiang, et al. "Demystifying Self-supervised Trojan Attacks." arXiv preprint arXiv:2210.07346 (2022).
