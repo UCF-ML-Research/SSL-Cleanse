@@ -50,6 +50,17 @@ class DatasetInit(data.Dataset):
     def __getitem__(self, idx):
         image_path = self.file_list[idx].split("$")[0]
         img = Image.open(image_path).convert('RGB')
+        trigger_img = Image.open("/home/jiaq/Research/SSL-Cleanse/detector/core/triggers/trigger_10.png").convert(
+            'RGBA')
+        trigger_img_resized = trigger_img.resize((
+            min(int(img.width * 0.25), int(img.height * 0.25)),
+            min(int(img.width * 0.25), int(img.height * 0.25))
+        ))
+        x_position = int(img.width - trigger_img_resized.width - img.width * 0.25)
+        y_position = int(img.height - trigger_img_resized.height - img.height * 0.25)
+        position = (x_position, y_position)
+        alpha = trigger_img_resized.split()[3]  # 提取alpha通道
+        img.paste(trigger_img_resized, position, alpha)
         target = int(self.file_list[idx].split("$")[1])
         image = self.transform(img)
         return image, target

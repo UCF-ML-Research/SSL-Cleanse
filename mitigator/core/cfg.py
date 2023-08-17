@@ -10,22 +10,31 @@ def get_cfg():
     """ generates configuration from user input in console """
     parser = argparse.ArgumentParser(description="")
     parser.add_argument(
-        "--method", type=str, choices=METHOD_LIST, default="byol", help="loss type",
+        "--method", type=str, choices=METHOD_LIST, default="w_mse", help="loss type",
     )
     parser.add_argument(
         "--wandb",
         type=str,
-        default="detection",
+        default="self_supervised",
         help="name of the project for logging at https://wandb.ai",
     )
     parser.add_argument(
         "--byol_tau", type=float, default=0.99, help="starting tau for byol loss"
     )
     parser.add_argument(
-        "--num_samples",
+        "--n_0",
+        type=int,
+        default=2,
+    )
+    parser.add_argument(
+        "--n_1",
         type=int,
         default=1,
-        help="number of samples (d) generated from each image",
+    )
+    parser.add_argument(
+        "--n_2",
+        type=int,
+        default=1,
     )
 
     addf = partial(parser.add_argument, type=float)
@@ -52,7 +61,8 @@ def get_cfg():
     )
     parser.add_argument("--knn", type=int, default=5, help="k in k-nn classifier")
     parser.add_argument("--fname", type=str, help="load model from file")
-    parser.add_argument("--clf_fname", type=str, help="load clf from file")
+    parser.add_argument("--clf_fname", type=str, help="load clf model from file")
+    parser.add_argument("--target_label", type=int)
     parser.add_argument(
         "--lr_step",
         type=str,
@@ -60,7 +70,7 @@ def get_cfg():
         default="step",
         help="learning rate schedule type",
     )
-    parser.add_argument("--lr", type=float, default=1e-1)
+    parser.add_argument("--lr", type=float, default=1e-3, help="learning rate")
     parser.add_argument(
         "--eta_min", type=float, default=0, help="min learning rate (for --lr_step cos)"
     )
@@ -113,6 +123,12 @@ def get_cfg():
         "--bs", type=int, default=512, help="number of original images in batch N",
     )
     parser.add_argument(
+        "--bs_clf", type=int, default=1000, help="number of original images in batch N",
+    )
+    parser.add_argument(
+        "--bs_test", type=int, default=1000, help="number of original images in batch N",
+    )
+    parser.add_argument(
         "--drop",
         type=int,
         nargs="*",
@@ -132,11 +148,11 @@ def get_cfg():
         default="resnet18",
         help="encoder architecture",
     )
-    parser.add_argument("--dataset", type=str, choices=DS_LIST, default="imagenet")
+    parser.add_argument("--dataset", type=str, choices=DS_LIST, default="cifar10")
     parser.add_argument(
         "--num_workers",
         type=int,
-        default=8,
+        default=multiprocessing.cpu_count(),
         help="dataset workers number",
     )
     parser.add_argument(
@@ -150,32 +166,24 @@ def get_cfg():
         "--eval_head", action="store_true", help="eval head output instead of model",
     )
     # parser.add_argument("--imagenet_path", type=str, default="~/IN100/")
+    parser.add_argument("--train_file_path", type=str, default="")
+    parser.add_argument("--clf_file_path", type=str, default="")
     parser.add_argument("--test_file_path", type=str, default="")
+    parser.add_argument("--test_t_file_path", type=str, default="")
     parser.add_argument("--exp_id", type=str, default="")
 
     parser.add_argument("--clf_chkpt", type=str, default="")
     parser.add_argument("--evaluate", dest="evaluate", action="store_true")
     parser.add_argument("--eval_data", type=str, default="")
-    parser.add_argument("--save_folder_root", type=str, default="/home/jiaq/detection/output")
-    parser.add_argument("--lam", type=float, default=0.0001)
-    parser.add_argument("--early_stop", action="store_true")
-    parser.add_argument("--attack_succ_threshold", type=float, default=0.98)
-    parser.add_argument("--patience", type=int, default=5)
-    parser.add_argument("--lam_multiplier_up", type=float, default=1.5)
-    parser.add_argument("--early_stop_threshold", type=float, default=0.99)
-    parser.add_argument("--early_stop_patience", type=int, default=10)
-    parser.add_argument("--start_early_stop_patience", type=int, default=50)
-    parser.add_argument("--num_clusters", type=int, required=True)
-    parser.add_argument("--knn_sample_num", type=int, required=True)
-    parser.add_argument("--target_center", action="store_true")
-    parser.add_argument("--ratio", type=float, default=1.0)
-    parser.add_argument("--knn_center", action="store_true")
-    parser.add_argument(
-        "--topk",
-        type=int,
-        nargs="*",
-        default=[1, 5],
-    )
-    parser.add_argument("--trigger_path", type=str, required=False)
-
+    parser.add_argument("--save_folder_root", type=str, default="./output")
+    parser.add_argument("--trigger_path", type=str, required=False, default=None)
+    parser.add_argument("--trigger_width", type=int, default=60)
+    parser.add_argument("--trigger_location", type=float, default=0.9)
+    parser.add_argument("--alpha_1", type=float, default=1.0)
+    parser.add_argument("--alpha_2", type=float, default=0)
+    parser.add_argument("--alpha_3", type=float, default=0)
+    parser.add_argument("--alpha_4", type=float, default=1.0)
+    parser.add_argument("--freeze_level", type=int, default=0)
+    parser.add_argument("--one_image_path", type=str, required=False, default=None)
+    parser.add_argument("--one_image_paths", type=str, nargs="*", default=None)
     return parser.parse_args()

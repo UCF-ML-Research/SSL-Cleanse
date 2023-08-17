@@ -135,7 +135,7 @@ if __name__ == "__main__":
                 z = target_reps
                 zt = encoder.model(X_R)
                 loss_asr = encoder.loss_f(z, zt)
-                loss_reg = torch.mean(mask_tanh*delta_tanh)
+                loss_reg = torch.mean(mask_tanh)
                 loss = loss_asr + lam * loss_reg
                 opt.zero_grad()
                 loss.backward(retain_graph=True)
