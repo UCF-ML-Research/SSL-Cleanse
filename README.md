@@ -1,6 +1,6 @@
 # SSL-Cleanse [[Paper](https://arxiv.org/pdf/2303.09079.pdf)]
 
-This repository contains code for our paper "[SSL-Cleanse: Trojan Detection and Mitigation in Self-Supervised Learning](https://arxiv.org/pdf/2303.09079.pdf)". 
+This repository contains code for our ECCV 2024 paper "[SSL-Cleanse: Trojan Detection and Mitigation in Self-Supervised Learning](https://arxiv.org/pdf/2303.09079.pdf)". 
 In this paper, we propose SSL-Cleanse to detect and mitigate backdoor attacks in SSL encoders. In particular, we propose a SWK clustering to cluster the unlabeled 
 data and then use such clustered data to conduct SSL-Cleanse. 
 
